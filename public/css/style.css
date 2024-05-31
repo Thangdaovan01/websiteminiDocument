@@ -1,0 +1,256 @@
+:root{
+  --mainColor : #1d71be;
+  --borderColor: #d6d6d6;
+  --headerWeb: #ccc;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  position: fixed;
+  height: 56px;
+  background-color: #2f3438;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 9999;
+}
+
+.header-container .logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 120px;
+
+}
+
+.header-container .logo a{
+  color: #fff;
+  text-decoration: none;
+  font-size: 24px;
+}
+
+.header-container button i {
+  color: #fff !important;
+}
+
+.nav-container {
+  display: flex;
+  height: 100%;
+  margin-left: 20px;
+}
+
+.nav-container a {
+  display: flex;
+  position: relative;
+  align-items: center;
+  height: 100% !important;
+  color: #fff;
+  text-decoration: none;
+  font-size: 18px;
+  padding: 0 15px;
+}
+
+.nav-container a::before {
+  content: '';
+  height: 3px;
+  width: 0;
+  background-color: #fff;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  transition: 0.25s cubic-bezier(0.075, 0.82, 0.165, 1);
+} 
+
+.nav-container > a:hover::before {
+  width: 100% !important;
+}
+
+.nav-container a::after {
+  content: none !important;
+}
+
+.active {
+  font-weight: bold !important;
+}
+
+.create-row-container {
+  margin-left: 10px;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  position: fixed;
+  
+  height: 56px;
+  left: 50%;
+  z-index: 99999;
+}
+
+.search-form{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px;
+  overflow: hidden;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #fff;
+}
+
+.search-form input {
+  width: 400px;
+  height: 30px;
+  border: 0;
+  padding-left: 15px;
+}
+
+.search-form input:focus {
+  outline: none;
+}
+
+.search-form button {
+  width: 25px;
+  height: 25px;
+  border: 0;
+  border-radius: 15px;
+  background-color: #fff;
+  transform: translate(-15%, -5%);
+  cursor: pointer;
+
+}
+
+.search-form button i {
+  color: #616161 !important;
+}
+
+.logout-container{
+  display: flex;
+  align-items: center;
+  position: fixed;
+  right: 15px;
+  height: 56px;
+  
+}
+
+.logout-container button, .create-row-container button {
+  background-color: transparent;
+  font-size: 24px;
+  border: 0;
+}
+
+main {
+  margin-top: 56px;
+}
+
+.form-group {
+  margin-bottom: 5px;
+}
+
+/* DEMO */
+.notification {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 50px;
+    right: -350px;
+    width: 300px;
+    background-color: var(--mainColor);
+    color: #000000;
+    padding: 10px;
+    border: 1px solid #ffffff;
+    border-radius: 10px 0 0 10px;
+    box-shadow: 0px 0px 3px #000;
+    transition: right 0.5s ease; 
+    z-index: 9999;
+  }
+  
+.right-slide {
+    right: 0px; 
+}
+  
+.window {
+  display: none;
+  flex-direction: column;
+  width: 800px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.8);
+  background-color: var(--mainColor);
+  color: #fff;
+  padding: 15px;
+  border-radius: 5px;
+  z-index: 1000;
+  overflow: hidden;
+  box-shadow: 0px 0px 5px #c7c7c7;
+  /* overflow-y: scroll; */
+  /* transform: scale(0.8); */
+}
+
+.blur {
+  filter: blur(5px);
+  pointer-events: none;
+}
+
+.data-content-container {
+  margin-top: 20px;
+}
+
+.data-content-container thead{
+  background-color: var(--mainColor);
+  color: #fff;
+}
+.data-content-container .title {
+  width: 300px;
+}
+
+.data-content-container .content {
+  width: 900px;
+}
+
+.data-content-container .action {
+  width: 100px;
+}
+
+.action {
+  display: flex;
+  padding: 0 15px;
+  justify-content: space-between;
+}
+
+.action button {
+  background-color: transparent;
+  border: 0;
+}
+
+.update-btn {
+  color: #ecbf44;
+}
+
+.delete-btn {
+  color: #f13232;
+}
+
+.save-update-data-btn .save-new-data {
+  background-color: transparent;
+  color: #fff;
+  width: 120px;
+  height: 40px;
+  border: 0;
+  border-radius: 20px;
+}
+
+.save-update-data-btn .save-new-data:hover {
+  background-color: #3987b8;
+
+}

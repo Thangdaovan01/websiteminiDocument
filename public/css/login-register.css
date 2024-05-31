@@ -1,0 +1,101 @@
+:root{
+    --mainColor : #1d71be;
+    --borderColor: #d6d6d6;
+    --headerWeb: #ccc;
+    --extraText: #8d8d8d;
+}
+
+body {
+    background-image: url('https://www.pixel4k.com/wp-content/uploads/2018/03/HD%20Desktop%20Blue206572979.jpg.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.container {
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: hidden;
+    margin-top: 150px;
+    border: 0.5px solid var(--borderColor);
+    border-radius: 15px;
+    transition: 2s ease scroll;
+    scroll-behavior: smooth;
+    background-color: #fff;
+    width: 500px;
+    margin: auto;
+}
+
+.container > div {
+    min-height: 380px;
+    padding: 10px;
+    width: 480px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+h2 {
+    color: var(--mainColor);
+}
+
+input {
+    font-size: 18px;
+    width: 460px;
+    height: 25px;
+    padding-left: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: 0.5px solid var(--borderColor);
+}
+
+.password-input-container {
+    position: relative;
+}
+
+.change-style-password {
+    position: absolute;
+    background-color: transparent;
+    top: 5px;
+    right: 10px;
+    border: none;
+    cursor: pointer;
+    z-index: 1;
+}
+
+form > .submit-btn {
+    position: absolute;
+    font-size: 20px;
+    width: 140px;
+    right: 10px;
+    top: 380px;
+    transform: translateY(-100%);
+    background-color: var(--mainColor);
+    border: 0;
+    border-radius: 10px;
+    color: #fff;
+    padding: 5px;
+}
+
+form > .change-form {
+    position: absolute;
+    top: 380px;
+    transform: translateY(-100%);
+    color: var(--extraText);
+}
+
+.change-form button {
+    border: 0;
+    background-color:  transparent;
+    color: var(--mainColor);
+    text-decoration: underline;
+    font-size: 17px;
+}
+
+.warning-border {
+    border: 0.5px solid red;
+}

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/document.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" 
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+
+<body> 
+    <div class="header-container">
+        <div class="logo">
+            <a class="" href="/">EXCEL</a>
+        </div>
+        <div class="nav-container">
+            <a class="" id="priceList" href="/document">Tài liệu</a>
+        </div>
+        <div class="create-row-container">
+            <button id="create" title="Thêm dữ liệu mới" class="create-btn"><i class="fa-solid fa-file-circle-plus"></i></button>
+        </div>
+        <div class="search-container">
+            <form class="search-form" id="search_form" >
+                <input type="text" name="searchText" class="searchText">
+                <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </form>
+        </div>
+        <div class="logout-container">
+            <button id="logout" title="Đăng xuất" class="logout-btn"><i class="fa-solid fa-right-from-bracket"></i></button>
+        </div>
+
+    </div>
+    <main>
+        <!-- <h1>Upload Document</h1> -->
+        <!-- <form id="upload_form" enctype="multipart/form-data">
+            <div>
+                <label for="title">Title:</label><br>
+                <input type="text" id="title" name="title" required><br>
+            </div>
+            <div>
+                <label for="document">Document:</label><br>
+                <input type="file" id="document" name="document" accept=".pdf,.doc,.docx" required><br>
+            </div>
+            <div>
+                <label for="description">Description:</label><br>
+                <textarea id="description" name="description" rows="4" cols="50"></textarea><br>
+            </div>
+            <div>
+                <label for="field">Field of Study:</label><br>
+                <select id="field" name="field">
+                    <option value="math">Math</option>
+                    <option value="science">Science</option>
+                    <option value="literature">Literature</option>
+                </select><br>
+            </div>
+            <button type="submit">Upload</button>
+        </form> -->
+
+        <!-- <div id="document_display"></div>
+        <div id="documents_list">
+        </div> -->
+
+
+
+        <div class="sidebar">
+            <div class="profile">
+                <img src="https://cellphones.com.vn/sforum/wp-content/uploads/2023/10/avatar-trang-4.jpg" alt="Avatar">
+                <span>Tên người dùng</span>
+                <span>127 Tải lên</span>
+                <button class="create-new-document-btn"> <i class="fa-solid fa-arrow-up-from-bracket"></i> Đăng tài liệu</button>
+            </div>
+            
+            <div class="menu">
+                <span><i class="fa-regular fa-folder-open"></i> Tài liệu môn học</span>
+                <ul>
+                    <li>Trường A</li>
+                    <li>Trường B</li>
+                    <li>Trường C</li>
+                </ul>
+                <span><i class="fa-regular fa-heart"></i> Tài liệu yêu thích</span>
+                <span><i class="fa-regular fa-file"></i> Tài liệu của tôi</span>
+                <span><i class="fa-regular fa-rectangle-list"></i> Chương trình đào tạo</span>
+            </div>
+        </div>
+        <div class="main-content">
+            <div class="section most-search-section">
+                <h3>Học phần hay được tìm kiếm</h3>
+                <div class="item">
+                    <img src="https://cdn.tgdd.vn/2020/05/campaign/cach-chuyen-hinh-anh-thanh-van-ban-bang-google-tai-lieu-thumb-640x360.jpg" alt="Course 1">
+                    <div class="title">Đề kiểm tra  THCS Trần Huy Liệu</div>
+                </div>
+                <div class="item">
+                    <img src="https://www.tremplin-numerique.org/wp-content/uploads/2021/05/Comment-utiliser-la-fonctionnalite-Explorer-de-Google-Docs-pour-la.jpg" alt="Course 2">
+                    <div class="title">Đề kiểm tra Nguyễn Tất Thành năm 2023</div>
+                </div>
+                <div class="item">
+                    <img src="https://nology.vn/wp-content/uploads/2024/03/cach-tim-kiem-tai-lieu-nuoc-ngoai-1-1.jpg" alt="Course 3">
+                    <div class="title">ĐỀ KIỂM TRA THCS Lê Văn Thiêm</div>
+                </div>
+            </div>
+            <div class="section maybe-interested-section">
+                <h3>Có thể bạn quan tâm <button class="view-all maybe-interested-view-all">Xem tất cả <i class="fa-solid fa-angles-right"></i></button></h3>
+                <div class="section1 maybe-interested-container items">
+                    <div class="item">
+                        <img src="https://www.tremplin-numerique.org/wp-content/uploads/2021/05/Comment-utiliser-la-fonctionnalite-Explorer-de-Google-Docs-pour-la.jpg" alt="Interest 1">
+                        <div class="title">Đề kiểm tra THCS Trần Huy Liệu</div>
+                        <div class="description">Trong chuyến bay về nước sau khi vô địch MSI, bạn muốn nghe Chovy hay Canyon hát?</div>
+                        <div class="meta">
+                            <span class="likes">123 Likes</span>
+                            <span class="date">01/01/2024</span>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <img src="https://cdn.tgdd.vn/2020/05/campaign/cach-chuyen-hinh-anh-thanh-van-ban-bang-google-tai-lieu-thumb-640x360.jpg" alt="Interest 2">
+                        <div class="title">Đề kiểm tra Nguyễn Tất Thành năm 2023</div>
+                        <div class="description">Lần đầu anh bị bóng đè là vào năm 2008, lúc đó anh đang ở kí túc xá. Anh để cửa sổ mở rồi ngủ trưa thì bỗng nghe thấy giọng phụ nữ ở bên ngoài nên chắc mẩm chuyến này mình gặp ma rồi. Donghae với Hankyung kể với anh là họ ở tuốt phòng bên kia mà vẫn nghe thấy tiếng anh chửi bên này. Hai người họ mới chạy đến phòng anh xem anh có bị gì không thì thấy anh đang </div>
+                        <div class="meta">
+                            <span class="likes">234 Likes</span>
+                            <span class="date">02/02/2024</span>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <img src="https://png.pngtree.com/png-vector/20190701/ourlarge/pngtree-document-icon-for-your-project-png-image_1533118.jpg" alt="Interest 3">
+                        <div class="title">ĐỀ KIỂM TRA THCS Lê Văn Thiêm</div>
+                        <div class="description">Dạo này skill hội hoạ của sếp lên trình quá rồi nên chúng ta cùng throwback lại những bức hoạ trừu tượng nức tiếng một thời của sếp nhé </div>
+                        <div class="meta">
+                            <span class="likes">345 Likes</span>
+                            <span class="date">03/03/2024</span>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <img src="https://nology.vn/wp-content/uploads/2024/03/cach-tim-kiem-tai-lieu-nuoc-ngoai-1-1.jpg" alt="Interest 4">
+                        <div class="title">Đề kiểm tra THCS Nguyễn Hữu Tiến</div>
+                        <div class="description">Đừng bao giờ có suy nghĩ dựa vào người khác để sống ... Chẳng có gì bền bỉ bằng sự cố gắng của chính bản thân mình</div>
+                        <div class="meta">
+                            <span class="likes">456 Likes</span>
+                            <span class="date">04/04/2024</span>
+                        </div>
+                    </div>
+                </div>
+                
+                
+            </div>
+            <div class="section recently-view-section">
+                <h3>Đã xem gần đây <button class="view-all recently-view-view-all">Xem tất cả <i class="fa-solid fa-angles-right"></i></button></h3>
+                <div class="items">
+                    <div class="item">
+                        <img src="https://nology.vn/wp-content/uploads/2024/03/cach-tim-kiem-tai-lieu-nuoc-ngoai-1-1.jpg" alt="Recent 1">
+                        <div class="title">Đề kiểm tra THCS Nguyễn Hữu Tiến</div>
+                        <div class="description">Dạo này skill hội hoạ của sếp lên trình quá rồi nên chúng ta cùng throwback lại những bức hoạ trừu tượng nức tiếng một thời của sếp nhé </div>
+                        <div class="meta">
+                            <span class="likes">123 Likes</span>
+                            <span class="date">01/01/2024</span>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <img src="https://png.pngtree.com/png-vector/20190701/ourlarge/pngtree-document-icon-for-your-project-png-image_1533118.jpg" alt="Recent 2">
+                        <div class="title">Đề kiểm tra THCS Thị Trấn Quế</div>
+                        <div class="description">Lần đầu anh bị bóng đè là vào năm 2008, lúc đó anh đang ở kí túc xá. Anh để cửa sổ mở rồi ngủ trưa thì bỗng nghe thấy giọng phụ nữ ở bên ngoài nên chắc mẩm chuyến này mình gặp ma rồi. Donghae với Hankyung kể với anh là họ ở tuốt phòng bên kia mà vẫn nghe thấy tiếng anh chửi bên này. Hai người họ mới chạy đến phòng anh xem anh có bị gì không thì thấy anh đang </div>
+                        <div class="meta">
+                            <span class="likes">234 Likes</span>
+                            <span class="date">02/02/2024</span>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <img src="https://cdn.tgdd.vn/2020/05/campaign/cach-chuyen-hinh-anh-thanh-van-ban-bang-google-tai-lieu-thumb-640x360.jpg" alt="Recent 3">
+                        <div class="title">Đề kiểm tra THCS Thanh Xuân</div>
+                        <div class="description">Đừng bao giờ có suy nghĩ dựa vào người khác để sống ... Chẳng có gì bền bỉ bằng sự cố gắng của chính bản thân mình</div>
+                        <div class="meta">
+                            <span class="likes">345 Likes</span>
+                            <span class="date">03/03/2024</span>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <img src="https://www.tremplin-numerique.org/wp-content/uploads/2021/05/Comment-utiliser-la-fonctionnalite-Explorer-de-Google-Docs-pour-la.jpg" alt="Recent 4">
+                        <div class="title">Đề kiểm tra THCS Cầu Giấy</div>
+                        <div class="description">Trong chuyến bay về nước sau khi vô địch MSI, bạn muốn nghe Chovy hay Canyon hát?</div>
+                        <div class="meta">
+                            <span class="likes">456 Likes</span>
+                            <span class="date">04/04/2024</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+
+
+
+         
+
+    </main>
+    <div class="window"></div>   
+    <div class="description"></div>
+    <div id="notification" class="notification">
+        <span id="notificationText"></span>
+    </div>   
+    
+</body>
+<!-- <script src="js/index.js"></script> -->
+<script src="js/document.js"></script>
+<script src="js/logout.js"></script>
+</html>
