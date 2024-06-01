@@ -55,7 +55,7 @@ var uploadfield = multer({ storage: storage });
 // const upload = multer({ dest: './public/data/documents/' });
 
 //login logout
-apiRouter.get('/user', apiController.getUser); 
+apiRouter.get('/users', apiController.getUsers); 
 
 apiRouter.post('/login', apiController.login);
 apiRouter.post('/register', apiController.register);
@@ -91,6 +91,8 @@ apiRouter.get('/search', apiController.getSearch);
   
 // }); 
 
+
+apiRouter.get('/searchDocument', apiController.getSearchDocument); 
 apiRouter.post('/document', apiController.createDocument); 
 apiRouter.get('/documents', apiController.getDocuments); 
 apiRouter.get('/document/:id', apiController.getDocument); 

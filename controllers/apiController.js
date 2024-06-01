@@ -132,7 +132,7 @@ const register = async (req, res) => {
     }
 }
 
-const getUser = async (req, res) => {
+const getUsers = async (req, res) => {
     try {
         const token = decodeToken(req.header('Authorize'));
 
@@ -172,6 +172,7 @@ const getUser = async (req, res) => {
         return res.status(404).json({message: 'Server error'});
     }
 }
+
 
 const getDatas = async (req, res) => {
     // try {
@@ -281,7 +282,7 @@ const getSearch = async (req, res) => {
             content: item._source.content
         }));
           
-        console.log(newArray);
+        // console.log(newArray);
         return res.status(200).json({ data: newArray });
         
         
@@ -381,6 +382,55 @@ const deleteData = async (req, res) => {
 }
 
 
+const getSearchDocument = async (req, res) => {
+
+    console.log("Get Search getSearchDocument");
+
+    try {
+        const { query } = req.query;
+        console.log("query",query);
+
+      
+        // res.json(hits.hits.map(hit => hit._source));
+        const body = await client.search({
+            index: 'documents',
+            body: {
+                query: {
+                    bool: {
+                        should: [
+                            { match_phrase: { title: query } },
+                            { match_phrase: { description: query } },
+                            { match_phrase: { documentText: query } },
+                            { match_phrase: { subject: query } },
+                            { match_phrase: { school: query } }
+                        ]
+                    }
+                }
+            }
+        });
+        // console.log("body",body.hits.hits);
+        const searchLength=body.hits.total.value;
+        const newArray = body.hits.hits.map(item => ({
+            _id: item._id,
+            title: item._source.title,
+            subject: item._source.subject,
+            school: item._source.school,
+            document: item._source.document,
+            documentImage: item._source.documentImage,
+            createdAt: item._source.createdAt,
+            createdBy: item._source.createdBy,
+            description: item._source.description,
+        }));
+          
+        // console.log(newArray);
+        return res.status(200).json({ data: newArray, searchLength:searchLength });
+        
+        
+    } catch (error) {
+        console.error(error);
+        return res.status(404).json({message: 'Server error'});
+    }
+}
 
 const createDocument = async (req, res) => {
 
@@ -519,8 +569,10 @@ const getDocument= async (req, res) => {
                 id: documentId
             });
             // console.log("findDocument",findDocument);
-            const { _id, _source: { title, fileName, path, description, field, content } } = findDocument;
-            const resultObject = { _id, title, fileName, path, description, field, content };
+            // const newArray = body.hits.hits.map(({ _id, _source: { title, description, school , subject, document, documentImage, createdAt, createdBy } }) => ({ _id, title, description, school , subject, document, documentImage, createdAt, createdBy }));
+
+            const { _id, _source: { title, description, school , subject, document, documentImage, createdAt, createdBy } } = findDocument;
+            const resultObject = { _id, title, description, school , subject, document, documentImage, createdAt, createdBy };
             return res.status(200).json({ document: resultObject });
         } else {
             return res.status(400).json({ message: 'Không có tài liệu nào' })
@@ -581,12 +633,7 @@ const getDocument= async (req, res) => {
 // }
 
 const uploadDocumentFile =  async (req, res) => {
-    // console.log("apiRouter.post");
- 
     try {
-        // console.log("REQ",req);
-        // console.log("REQ",req.file);
-        
         res.status(200).json({ filename: req.file.filename });
     } catch (error) {
         console.error("Error uploading image:", error);
@@ -595,12 +642,7 @@ const uploadDocumentFile =  async (req, res) => {
 };
 
 const uploadDocumentImageFile =  async (req, res) => {
-    // console.log("apiRouter.post");
- 
     try {
-        // console.log("REQ",req);
-        // console.log("REQ",req.file);
-        
         res.status(200).json({ filename: req.file.filename });
     } catch (error) {
         console.error("Error uploading image:", error);
@@ -611,9 +653,9 @@ const uploadDocumentImageFile =  async (req, res) => {
 
 
 module.exports = {
-    login, register, getUser,
+    login, register, getUsers,
     createData, getDatas, updateData, deleteData,
     getSearch,
-    createDocument, getDocuments, getDocument,
+    createDocument, getDocuments, getDocument, getSearchDocument,
     uploadDocumentFile, uploadDocumentImageFile
 }

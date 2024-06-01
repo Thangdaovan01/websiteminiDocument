@@ -5,7 +5,7 @@ var user = {};
 const token = localStorage.getItem('jwtToken');
 
 $(document).ready(function() {
-    fetch('http://localhost:3000/api/user', {
+    fetch('http://localhost:3000/api/users', {
         method: "GET",
         headers: {
             "Content-Type" : "application/json",
@@ -216,6 +216,7 @@ function deleteData (dataId) {
 }
 
 function showSearchValue(searchText) {
+    console.log("searchDocument",searchText);
 
     fetch(`http://localhost:3000/api/search?query=${encodeURIComponent(searchText)}`, {
         method: "GET",

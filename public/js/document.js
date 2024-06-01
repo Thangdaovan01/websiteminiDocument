@@ -1,4 +1,6 @@
 var documentsArr = [];
+var usersArr = [];
+var currUser = {};
 var documentFileName = '';
 var imageFileName = '';
 const token = localStorage.getItem('jwtToken');
@@ -13,7 +15,7 @@ $(document).ready(function() {
     .then(response => {
         return response.json().then(data => {
             if (!response.ok) {
-                showNotification(data.message);
+                // showNotification(data.message);
                 throw new Error('Network response was not ok');
             }
             return data;
@@ -22,8 +24,39 @@ $(document).ready(function() {
     .then(result => {
         documentsArr = result.documents;
         console.log("documentsArr",documentsArr);
-
+        var recentlyPostArr = documentsArr.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).slice(0, 4);
+        showRecentlyPost(recentlyPostArr);
+        
         // showDocuments(documentsArr);
+    })
+    .catch(error => {
+        console.error('There was a problem with your fetch operation:', error);
+    });
+
+    //Lấy giá trị user
+    fetch('http://localhost:3000/api/users', {
+        method: "GET",
+        headers: {
+            "Content-Type" : "application/json",
+            "Authorize" : token
+        }
+    })
+    .then(response => {
+        return response.json().then(data => {
+            if (!response.ok) {
+                showNotification(data.message);
+                window.location.href = 'http://localhost:3000/login-register';
+                throw new Error('Network response was not ok');
+            }
+            return data;
+        });
+    })
+    .then(result => {
+        currUser = result.user;
+        usersArr = result.users;
+        console.log("USER",result);
+        // showUsers(usersArr);
+        showSidebar(currUser);
     })
     .catch(error => {
         console.error('There was a problem with your fetch operation:', error);
@@ -182,6 +215,23 @@ $(document).ready(function() {
         }
     })
 
+    $(document).on('click','.recently-post-item img, .recently-post-item .title', async function(event) {
+        event.stopPropagation();
+        var documentId = $(this).closest('.recently-post-item').data('document-id');
+        if(documentId){
+            window.location.href = `http://localhost:3000/document/${documentId}`;
+        }
+    })
+
+    // $(document).on('click','.recently-post-item img, .recently-post-item .title', async function(event) {
+    $('#search_document_form').submit(function(event){
+        event.preventDefault();
+        const searchText = $('.searchText').val();
+        console.log("searchText",searchText);
+        searchDocument(searchText);
+        $('#search-document-form input[type="text"]').val('');
+
+    });
     // $('#upload_form').submit(function(event) {
     //     event.preventDefault();
     //     var formData = new FormData(this);
@@ -201,6 +251,68 @@ $(document).ready(function() {
         
     // });
 })
+
+function showSidebar(user) {
+    const userId = user._id;
+    const count = documentsArr.filter(doc => doc.createdBy === userId).length;
+    document.querySelector('.profile .username').textContent = user.fullname;
+    document.querySelector('.profile .uploadCount').textContent = `${count} Tải lên`;
+}
+
+function searchDocument(searchText){
+    console.log("searchDocument",searchText);
+
+    fetch(`http://localhost:3000/api/searchDocument?query=${encodeURIComponent(searchText)}`, {
+        method: "GET",
+        headers: {
+            "Content-Type" : "application/json",
+            "Authorize" : token
+        },
+    })
+    .then(response => {
+        return response.json().then(data => {
+            if (!response.ok) {
+                showNotification(data.message);
+                throw new Error('Network response was not ok');
+            }
+            return data;
+        });
+    })
+    .then(result => {
+        // showNotification(result.message);
+        var searchResult = result.data;
+        var searchLength = result.searchLength;
+        console.log("searchResult", searchResult)
+        $('.main-content').empty();
+        showDocuments(searchResult, searchLength);
+    })
+    .catch(error => {
+        console.error('There was a problem with your fetch operation:', error);
+    });
+    
+}
+
+function showRecentlyPost(recentlyPostArr) {
+    const recentlyPostItemsContainer = document.querySelector('.recently-post-section .items');
+    var recentlyPostHTML = ``;
+    for( let i = 0; i < recentlyPostArr.length; i++){
+        var timeCreatedAgo = timeAgo(recentlyPostArr[i].createdAt);
+
+        recentlyPostHTML += `
+        <div class="item recently-post-item recently-post-item-${recentlyPostArr[i]._id}" data-document-id="${recentlyPostArr[i]._id}">
+            <img src="/documentsImg/${recentlyPostArr[i].documentImage}" >
+            <div class="title">${recentlyPostArr[i].title}</div>
+            <div class="description"> ${recentlyPostArr[i].description} </div>
+            <div class="meta">
+                <span class="likes">234 Likes</span>
+                <span class="date">${timeCreatedAgo}</span>
+            </div>
+        </div>   
+        `
+        recentlyPostItemsContainer.innerHTML = recentlyPostHTML;
+
+    }
+}
  
 async function fileReaderDocument(formData) {
     console.log("fileReaderDocument");
@@ -219,7 +331,7 @@ async function fileReaderDocument(formData) {
             });
         })
         .then(result => {
-            showNotification(result.message);
+            // showNotification(result.message);
             console.log("fileReaderDocument",result);
             documentFileName = result.filename;
         })
@@ -250,7 +362,7 @@ async function fileReaderImage(formData) {
             });
         })
         .then(result => {
-            showNotification(result.message);
+            // showNotification(result.message);
             console.log("fileReaderImage",result);
             imageFileName = result.filename;
 
@@ -265,25 +377,47 @@ async function fileReaderImage(formData) {
     }       
 }
 
-function showDocuments(documentsArr) {
+
+function showDocuments(documentsArr, documentsLength) {
     console.log("documentsArr", documentsArr);
-    const documentsList = document.getElementById('documents_list');
-    documentsArr.forEach(doc => {
-            const documentElement = document.createElement('div');
-            documentElement.innerHTML = `
-            <div>
-                <h2>${doc.title}</h2>
-                <p><strong>Description:</strong> ${doc.description}</p>
-                <p><strong>Field:</strong> ${doc.field}</p>
-                <p><strong>FileName:</strong> ${doc.fileName}</p>
-                <p><strong>FilePath:</strong> ${doc.path}</p>
-                <button onclick="openDocument('${doc._id}')">View Document</button>
+    const mainContent = document.querySelector('.main-content');
+    // Làm trống nội dung bên trong main-content
+    mainContent.innerHTML = '';
+    // Tạo khối div mới với class section và documents-section
+    const sectionDiv = document.createElement('div');
+    sectionDiv.classList.add('section', 'documents-section');
+    // Tạo thẻ h3 với nội dung
+    const h3 = document.createElement('h3');
+    h3.textContent = `Có ${documentsLength} giá trị tìm kiếm`;
+    // Tạo khối div mới với class items và document-items
+    const itemsDiv = document.createElement('div');
+    itemsDiv.classList.add('items', 'document-items');
+    // Thêm thẻ h3 và khối itemsDiv vào sectionDiv
+    sectionDiv.appendChild(h3);
+    sectionDiv.appendChild(itemsDiv);
+    mainContent.appendChild(sectionDiv);
+
+    const documentContainer = document.querySelector('.documents-section .items');
+    var documentHTML = ``;
+    for(let i = 0; i < documentsLength; i++) {
+        var timeCreatedAgo = timeAgo(documentsArr[i].createdAt);
+
+        documentHTML += `
+        <div class="item recently-post-item recently-post-item-${documentsArr[i]._id}" data-document-id="${documentsArr[i]._id}">
+            <img src="/documentsImg/${documentsArr[i].documentImage}" >
+            <div class="title">${documentsArr[i].title}</div>
+            <div class="description"> ${documentsArr[i].description} </div>
+            <div class="meta">
+                <span class="likes">234 Likes</span>
+                <span class="date">${timeCreatedAgo}</span>
             </div>
-            `;
-            documentsList.appendChild(documentElement);
-        });
+        </div>   
+        `
+        documentContainer.innerHTML = documentHTML;
+    }
 }
 
+//chưa dùng
 function openDocument(documentId) {
     // Thực hiện hành động tương ứng để hiển thị hoặc tải tài liệu lên
     // Đặc biệt, nếu là tệp DOC, bạn cần sử dụng một thư viện hoặc plugin phù hợp để hiển thị nó
@@ -347,6 +481,25 @@ function createNewDocument(newDocument){
     });
 }
 
+function timeAgo(timestamp) {
+    const now = Date.now();
+    const diff = now - timestamp;
+  
+    const seconds = Math.floor(diff / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+  
+    if (days > 0) {
+      return `${days} ngày trước`;
+    } else if (hours > 0) {
+      return `${hours} giờ trước`;
+    } else if (minutes > 0) {
+      return `${minutes} phút trước`;
+    } else {
+      return `${seconds} giây trước`;
+    }
+  }
 
 function showNotification(message) {
     $('#notificationText').text(message);

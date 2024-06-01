@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+<head> 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
@@ -10,6 +10,7 @@
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/document.css">
+    <link rel="stylesheet" href="/css/documentfile.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" 
         integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -17,18 +18,18 @@
 </head>
 <body>
     <div class="header-container">
+        
         <div class="logo">
             <a class="" href="/">EXCEL</a>
         </div>
         <div class="nav-container">
             <a class="" id="priceList" href="/document">Tài liệu</a>
-            <a class="" id="priceList" href="/documentFilename">PDF</a>
         </div>
-        <div class="create-row-container">
+        <!-- <div class="create-row-container">
             <button id="create" title="Thêm dữ liệu mới" class="create-btn"><i class="fa-solid fa-file-circle-plus"></i></button>
-        </div>
-        <div class="search-container">
-            <form class="search-form" id="search_form" >
+        </div> -->
+        <div class="search-document-container">
+            <form class="search-document-form" id="search_document_form" >
                 <input type="text" name="searchText" class="searchText">
                 <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
             </form>
@@ -39,12 +40,35 @@
 
     </div>
     <main>
-        <h1>File Detail</h1>
+        <div class="sidebar">
+            <div class="profile">
+                <img src="https://cellphones.com.vn/sforum/wp-content/uploads/2023/10/avatar-trang-4.jpg" alt="Avatar">
+                <span class="username">Tên người dùng</span>
+                <span class="uploadCount">127 Tải lên</span>
+                <button class="create-new-document-btn"> <i class="fa-solid fa-arrow-up-from-bracket"></i> Đăng tài liệu</button>
+            </div>
+            
+            <div class="menu">
+                <span><i class="fa-regular fa-folder-open"></i> Tài liệu môn học</span>
+                <ul>
+                    <li>Trường A</li>
+                    <li>Trường B</li>
+                    <li>Trường C</li>
+                </ul>
+                <span><i class="fa-regular fa-heart"></i> Tài liệu yêu thích</span>
+                <span><i class="fa-regular fa-file"></i> Tài liệu của tôi</span>
+                <span><i class="fa-regular fa-rectangle-list"></i> Chương trình đào tạo</span>
+            </div>
+        </div>
         <!-- <canvas id="pdfCanvas" width="800" height="600"></canvas> -->
         <div class="file-container">
-            <iframe id="file-iframe" src ="" style="height:1000px; width:800px;"></iframe>
+            <div class="document-header">
+                
+            </div>
+            <iframe id="file-iframe" src =""></iframe>
+        </div> 
+        <div class="document-info-container">
         </div>
-
     </main>
 </body>
 <script src="/js/documentfile.js"></script>

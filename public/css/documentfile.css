@@ -1,0 +1,61 @@
+:root{
+    --main1Color : #1d71be;
+    --borderColor: #d6d6d6;
+    --headerWeb: #ccc;
+    --mainColor: #f0f2f5;
+    --textColor: #495057;
+
+}
+   
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.file-container {
+    /* width: 100%; */
+    width: 50vw;
+    padding: 20px;
+}
+iframe{
+    height:600px; 
+    /* width:800px; */
+    width: calc(50vw - 40px);
+    margin-top: 30px;
+} 
+
+.document-title {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.document-info-container {
+    width: 30vw;
+    /* background-color: #1d71be; */
+}
+
+/*INFO*/
+.detail-info {
+    /* margin: 70px 10px; */
+    width: 25vw;
+    margin-top: 100px;
+    margin-left: 20px;
+    border: 1px solid #ccc; 
+    border-radius: 8px; 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+    padding: 20px; 
+}
+
+.detail-info h3 {
+    margin-bottom: 10px; /* Khoảng cách dưới */
+}
+
+.detail-info p {
+    margin-bottom: 5px; /* Khoảng cách dưới */
+    font-size: 12px; /* Kích thước font chữ */
+}
+
+.detail-info p strong {
+    font-weight: bold; /* Chữ đậm */
+}
